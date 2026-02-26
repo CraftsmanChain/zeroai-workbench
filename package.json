@@ -1,0 +1,116 @@
+{
+  "name": "ai-workbench",
+  "private": true,
+  "version": "0.0.0",
+  "main": "dist-electron/main.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "lint": "eslint .",
+    "selfcheck": "node scripts/self-check-modelref.mjs",
+    "preview": "vite preview",
+    "electron:build": "tsc -p tsconfig.electron.json",
+    "electron:dev": "tsc -p tsconfig.electron.json && node scripts/electron-dev.mjs",
+    "dev:electron": "concurrently -k \"cross-env BROWSER=none npm run dev\" \"wait-on http://localhost:5173 && cross-env NODE_ENV=development npm run electron:dev\"",
+    "prepare:icons": "node scripts/ensure-icons.mjs",
+    "pack": "npm run build && npm run electron:build && npm run prepare:icons && electron-builder --dir",
+    "dist": "npm run build && npm run electron:build && npm run prepare:icons && electron-builder",
+    "offline:pack": "node scripts/offline-pack.mjs"
+  },
+  "dependencies": {
+    "@types/react-syntax-highlighter": "^15.5.13",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "react-markdown": "^10.1.0",
+    "react-syntax-highlighter": "^16.1.0",
+    "remark-gfm": "^4.0.1"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.39.1",
+    "@types/node": "^24.10.1",
+    "@types/react": "^19.2.5",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^5.1.1",
+    "concurrently": "^9.2.1",
+    "cross-env": "^10.1.0",
+    "@electron/notarize": "^2.5.0",
+    "electron": "^40.1.0",
+    "electron-builder": "^26.7.0",
+    "eslint": "^9.39.1",
+    "eslint-plugin-react-hooks": "^7.0.1",
+    "eslint-plugin-react-refresh": "^0.4.24",
+    "globals": "^16.5.0",
+    "typescript": "~5.9.3",
+    "typescript-eslint": "^8.46.4",
+    "vite": "npm:rolldown-vite@7.2.5",
+    "wait-on": "^9.0.3"
+  },
+  "overrides": {
+    "vite": "npm:rolldown-vite@7.2.5"
+  },
+  "build": {
+    "appId": "com.wage.app",
+    "productName": "元梦 AI",
+    "mac": {
+      "category": "public.app-category.developer-tools",
+      "executableName": "元梦 AI",
+      "target": [
+        {
+          "target": "dmg",
+          "arch": [
+            "arm64",
+            "x64"
+          ]
+        },
+        {
+          "target": "zip",
+          "arch": [
+            "arm64",
+            "x64"
+          ]
+        }
+      ],
+      "hardenedRuntime": true,
+      "entitlements": "build/entitlements.mac.plist",
+      "entitlementsInherit": "build/entitlements.mac.inherit.plist",
+      "icon": "build/icon.icns",
+      "extendInfo": {
+        "CFBundleDisplayName": "元梦 AI",
+        "CFBundleName": "元梦 AI"
+      }
+    },
+    "afterSign": "scripts/notarize.cjs",
+    "dmg": {
+      "title": "元梦 AI"
+    },
+    "win": {
+      "target": [
+        "nsis"
+      ],
+      "icon": "build/icon.ico"
+    },
+    "linux": {
+      "target": [
+        "AppImage"
+      ],
+      "icon": "build/icon.png"
+    },
+    "directories": {
+      "buildResources": "build",
+      "output": "release"
+    },
+    "files": [
+      "dist/**/*",
+      "dist-electron/**/*"
+    ],
+    "extraResources": [
+      {
+        "from": "resources",
+        "to": "resources",
+        "filter": [
+          "**/*"
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,44 @@
+.setup-wizard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background: #222;
+  color: white;
+}
+
+.setup-wizard .card {
+  width: 500px;
+  max-width: 90%;
+  padding: 30px;
+}
+
+.warning {
+  color: orange;
+  font-weight: bold;
+}
+
+.mode-selection {
+  display: flex;
+  gap: 20px;
+  margin-top: 30px;
+  justify-content: center;
+}
+
+.mode-selection button {
+  padding: 15px 30px;
+  font-size: 1.1em;
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+button.secondary {
+  background: transparent;
+  border: 1px solid #666;
+  color: #ccc;
+  margin-left: 10px;
+}
