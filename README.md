@@ -71,11 +71,10 @@ npm run dev:electron
 
 ## 致谢
 
-- Ollama：本地大模型运行时
+- Ollama：本地大模型运行时（https://ollama.com）
 - OpenClaw：智能体与工作流能力
-- 参考项目：openclaw-cn（中文增强版 OpenClaw，含国内网络优化与集成能力）
+- 参考项目：openclaw-cn（中文增强版 OpenClaw，含国内网络优化与集成能力）：https://github.com/jiulingyun/openclaw-cn
 
 ## License
 
 MIT
-
